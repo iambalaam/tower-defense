@@ -2,7 +2,7 @@ const CANVAS_WIDTH = 320;
 const CANVAS_HEIGHT = 240;
 const BG_COLOR = '#eee';
 
-type Ctx = CanvasRenderingContext2D;
+export type Ctx = CanvasRenderingContext2D;
 
 export class CanvasRenderer {
     _parentElement: HTMLElement;
@@ -33,7 +33,6 @@ export class CanvasRenderer {
         // Attach event listeners
         window.onresize = () => {
             this.scaleCanvas();
-            this.clear();
         }
 
     }
