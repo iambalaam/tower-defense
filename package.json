@@ -8,8 +8,9 @@
     "license": "MIT",
     "scripts": {
         "clean": "mkdir -p dist && rm -rf ./dist/*",
+        "copy": "cp sprites/*.png dist/",
         "webpack": "webpack",
-        "build": "run-s clean webpack",
+        "build": "run-s clean copy webpack",
         "start": "webpack serve"
     },
     "devDependencies": {

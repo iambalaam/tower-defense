@@ -3,12 +3,10 @@ html, body {
     overflow: hidden;
 }
 
-canvas {
-    background-color: indianred;
-}
-
 #root {
-    background-color: tan;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

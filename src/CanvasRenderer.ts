@@ -1,5 +1,6 @@
 const CANVAS_WIDTH = 320;
 const CANVAS_HEIGHT = 240;
+const BG_COLOR = '#eee';
 
 type Ctx = CanvasRenderingContext2D;
 
@@ -19,12 +20,9 @@ export class CanvasRenderer {
 
         // Create canvas and context
         const ctx = canvas.getContext('2d');
-        if (!ctx) {
-            throw new Error('Cannot create canvas context');
-        }
-        ctx.imageSmoothingEnabled = false;
-
+        if (!ctx) throw new Error('Cannot create canvas context');
         this._ctx = ctx;
+        this._ctx.imageSmoothingEnabled = false;
 
         // These will be updated
         this._scaleFactor = 1;
@@ -33,8 +31,10 @@ export class CanvasRenderer {
         this.scaleCanvas();
 
         // Attach event listeners
-        window.onresize = () => this.scaleCanvas();
-
+        window.onresize = () => {
+            this.scaleCanvas();
+            this.clear();
+        }
 
     }
 
@@ -47,11 +47,22 @@ export class CanvasRenderer {
     }
 
     scaleCanvas() {
-        const scalingFactor = this.calculateScalingFactor();
-        this._canvasWidth = CANVAS_WIDTH * scalingFactor;
-        this._canvasHeight = CANVAS_HEIGHT * scalingFactor;
-
+        this._scaleFactor = this.calculateScalingFactor();
+        this._canvasWidth = CANVAS_WIDTH * this._scaleFactor;
+        this._canvasHeight = CANVAS_HEIGHT * this._scaleFactor;
         this._canvas.width = this._canvasWidth;
         this._canvas.height = this._canvasHeight;
     }
+
+    clear() {
+        this._ctx.fillStyle = BG_COLOR;
+        this._ctx.fillRect(0, 0, this._canvasWidth, this._canvasWidth);
+    }
+
+    // Source and Destination {x, y, width, height}
+    drawSprite(img: HTMLImageElement, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
+        this._ctx.imageSmoothingEnabled = false;
+        this._ctx.drawImage(img, sx, sy, sw, sh, dx * this._scaleFactor, dy * this._scaleFactor, dw * this._scaleFactor, dh * this._scaleFactor);
+    }
+
 }
