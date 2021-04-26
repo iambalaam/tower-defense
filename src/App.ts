@@ -2,8 +2,7 @@ import { CanvasRenderer } from './CanvasRenderer'
 import { Sprite } from './Sprite';
 import { SpriteGrid } from './SpriteGrid';
 
-const SPRITE_SIZE = 32;
-const isDebug = window.location.search
+export const isDebug = window.location.search
     .slice(1)
     .split('&')
     .includes('debug');
@@ -24,7 +23,7 @@ export class App {
             .then(() => {
                 const s = new Sprite(this._imageBitmaps![0]);
                 this._grid = new SpriteGrid(this._canvas, [
-                    [[s, s, s, s, s], [s, s, s, s], [s, s, s], [s, s], [s]],
+                    [[s, s, s, s, s, s, s], [s, s, s, s], [s, s, s], [s, s], [s]],
                     [[s, s, s], [s, s], [s]],
                     [[s]]
                 ]);
@@ -54,7 +53,7 @@ export class App {
     }
 
     renderSprites() {
-        this._grid && this._grid.draw();
+        this._grid?.draw();
     }
 
     renderLoop: FrameRequestCallback = (cumMs: number) => {
@@ -71,6 +70,7 @@ export class App {
         // Debug
         if (isDebug) {
             this._canvas.drawText((1000 / ms).toFixed(0), 10, 50);
+            this._grid?.drawBoundingRect();
         }
 
         // Queue next frame

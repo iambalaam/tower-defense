@@ -70,4 +70,11 @@ export class CanvasRenderer {
         this._ctx.fillText(text, x, y);
     }
 
+    drawRect(x: number, y: number, w: number, h: number) {
+        this._ctx.imageSmoothingEnabled = false;
+        this._ctx.strokeStyle = 'black';
+        this._ctx.lineWidth = this._scaleFactor;
+        this._ctx.strokeRect(x * this._scaleFactor, y * this._scaleFactor, w * this._scaleFactor, h * this._scaleFactor);
+    }
+
 }
