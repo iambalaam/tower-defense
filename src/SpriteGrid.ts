@@ -1,14 +1,13 @@
 import { CANVAS_WIDTH, CANVAS_HEIGHT, CanvasRenderer } from './CanvasRenderer'
+import { Sprite } from './Sprite';
 
 export class SpriteGrid {
 
-    _canvas: CanvasRenderer
-    _tmpImg: HTMLImageElement;
-    gridState: number[][][];
+    _canvas: CanvasRenderer;
+    gridState: Sprite[][][];
 
-    constructor(canvas: CanvasRenderer, img: HTMLImageElement, gridState?: number[][][]) {
+    constructor(canvas: CanvasRenderer, gridState?: Sprite[][][]) {
         this._canvas = canvas;
-        this._tmpImg = img;
         this.gridState = gridState || [[[]]];
     }
 
@@ -17,7 +16,7 @@ export class SpriteGrid {
             for (let y = 0; y < this.gridState[z].length; y++) {
                 for (let x = 0; x < this.gridState[z][y].length; x++) {
                     const sprite = this.gridState[z][y][x];
-                    if (sprite === 1) {
+                    if (sprite) {
                         this.drawAt(x, y, z);
                     }
                 }
@@ -27,7 +26,7 @@ export class SpriteGrid {
 
     drawAt(x: number, y: number, z: number) {
         this._canvas.drawSprite(
-            this._tmpImg,                                   // TODO: Map to sprite
+            this.gridState[z][y][x].img,                        // Get sprite
             0, 0, 32, 32,                                   // TODO: Cut sprite from spritesheet
             (CANVAS_WIDTH / 2) + (y - x) * 16,              // TODO: Center the grid beforehand
             (CANVAS_HEIGHT / 2) + (y + x) * 8 - (z) * 16,   // 

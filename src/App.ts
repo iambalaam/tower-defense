@@ -1,4 +1,5 @@
 import { CanvasRenderer } from './CanvasRenderer'
+import { Sprite } from './Sprite';
 import { SpriteGrid } from './SpriteGrid';
 
 const SPRITE_SIZE = 32;
@@ -20,20 +21,22 @@ export class App {
         const img = new Image();
         img.src = './Ground.png';
         img.onload = () => {
-            this._img = img;
-            this._grid = new SpriteGrid(this._canvas, this._img, [
-                [[1, 1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1], [1, 1], [1]],
-                [[1, 1, 1], [1, 1], [1]],
-                [[1]]
-            ]);
-            this.renderSprites();
+            createImageBitmap(img)
+                .then((bitmap) => {
+                    const s = new Sprite(bitmap);
+                    this._grid = new SpriteGrid(this._canvas, [
+                        [[s, s, s, s, s], [s, s, s, s], [s, s, s], [s, s], [s]],
+                        [[s, s, s], [s, s], [s]],
+                        [[s]]
+                    ]);
+                })
         }
 
         this.renderLoop(0);
     }
 
     renderSprites() {
-        this._grid!.draw();
+        this._grid && this._grid.draw();
     }
 
     renderLoop: FrameRequestCallback = (cumMs: number) => {
@@ -45,9 +48,7 @@ export class App {
         this._canvas.clear();
 
         // Render sprites
-        if (this._img) {
-            this.renderSprites();
-        }
+        this.renderSprites();
 
         // Debug
         if (isDebug) {

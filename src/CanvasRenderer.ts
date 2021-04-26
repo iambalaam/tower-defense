@@ -59,7 +59,7 @@ export class CanvasRenderer {
     }
 
     // Source and Destination {x, y, width, height}
-    drawSprite(img: HTMLImageElement, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
+    drawSprite(img: HTMLImageElement | ImageBitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
         this._ctx.imageSmoothingEnabled = false;
         this._ctx.drawImage(img, sx, sy, sw, sh, dx * this._scaleFactor, dy * this._scaleFactor, dw * this._scaleFactor, dh * this._scaleFactor);
     }
