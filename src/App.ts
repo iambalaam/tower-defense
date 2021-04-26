@@ -1,4 +1,5 @@
 import { CanvasRenderer } from './CanvasRenderer'
+import { SpriteGrid } from './SpriteGrid';
 
 const SPRITE_SIZE = 32;
 const isDebug = window.location.search
@@ -10,6 +11,7 @@ export class App {
     _canvas: CanvasRenderer;
     _img?: HTMLImageElement;
     _prevMs: number;
+    _grid?: SpriteGrid;
 
     constructor(canvas: CanvasRenderer) {
         this._canvas = canvas;
@@ -19,16 +21,19 @@ export class App {
         img.src = './Ground.png';
         img.onload = () => {
             this._img = img;
-            this.renderSprites(this._img);
+            this._grid = new SpriteGrid(this._canvas, this._img, [
+                [[1, 1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1], [1, 1], [1]],
+                [[1, 1, 1], [1, 1], [1]],
+                [[1]]
+            ]);
+            this.renderSprites();
         }
 
         this.renderLoop(0);
     }
 
-    renderSprites(img: HTMLImageElement) {
-        this._canvas.drawSprite(img, 0, 0, SPRITE_SIZE, SPRITE_SIZE, 32, 32, 32, 32);
-        this._canvas.drawSprite(img, 0, 0, SPRITE_SIZE, SPRITE_SIZE, 64, 32, 32, 32);
-        this._canvas.drawSprite(img, 0, 0, SPRITE_SIZE, SPRITE_SIZE, 48, 40, 32, 32);
+    renderSprites() {
+        this._grid!.draw();
     }
 
     renderLoop: FrameRequestCallback = (cumMs: number) => {
@@ -41,7 +46,7 @@ export class App {
 
         // Render sprites
         if (this._img) {
-            this.renderSprites(this._img);
+            this.renderSprites();
         }
 
         // Debug

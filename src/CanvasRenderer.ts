@@ -1,5 +1,5 @@
-const CANVAS_WIDTH = 320;
-const CANVAS_HEIGHT = 240;
+export const CANVAS_WIDTH = 320;
+export const CANVAS_HEIGHT = 240;
 const BG_COLOR = '#eee';
 
 export type Ctx = CanvasRenderingContext2D;
