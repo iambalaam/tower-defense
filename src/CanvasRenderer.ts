@@ -64,4 +64,10 @@ export class CanvasRenderer {
         this._ctx.drawImage(img, sx, sy, sw, sh, dx * this._scaleFactor, dy * this._scaleFactor, dw * this._scaleFactor, dh * this._scaleFactor);
     }
 
+    drawText(text: string, x: number, y: number) {
+        this._ctx.fillStyle = 'black';
+        this._ctx.font = '30px Arial';
+        this._ctx.fillText(text, x, y);
+    }
+
 }
