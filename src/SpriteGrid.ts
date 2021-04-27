@@ -34,13 +34,13 @@ export class SpriteGrid {
     }
     findBoundingRect() {
         const [maxZ, maxY, maxX] = this.findBoundingBox();
-        return [16 * (maxX + maxY), 8 * Math.max(maxX, maxY) + (16 * maxZ) + 8];
+        return [16 * (maxX + maxY), 8 * (maxX + maxY) + (16 * maxZ)];
     }
 
     findOriginOffset() {
         const [maxZ, maxY, maxX] = this.findBoundingBox();
         const offsetX = 8 * (maxX - maxY) - 16;
-        const offsetY = 8 * maxZ - (4 * Math.max(maxX, maxY)) - 20;
+        const offsetY = 8 * maxZ - (4 * (maxX + maxY)) - 16;
         return [offsetX, offsetY];
     }
 

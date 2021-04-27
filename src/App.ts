@@ -22,11 +22,16 @@ export class App {
         this.loadAssets()
             .then(() => {
                 const s = new Sprite(this._imageBitmaps![0]);
-                this._grid = new SpriteGrid(this._canvas, [
-                    [[s, s, s, s, s, s, s], [s, s, s, s], [s, s, s], [s, s], [s]],
-                    [[s, s, s], [s, s], [s]],
-                    [[s]]
-                ]);
+                this._grid = new SpriteGrid(this._canvas, [[
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                    [s, s, s, s, s, s, s, s],
+                ]]);
             });
 
 
