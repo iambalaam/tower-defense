@@ -26,8 +26,8 @@ export class CanvasRenderer {
 
         // These will be updated
         this._scaleFactor = 1;
-        this._canvasWidth = 320;
-        this._canvasHeight = 240;
+        this._canvasWidth = CANVAS_WIDTH;
+        this._canvasHeight = CANVAS_HEIGHT;
         this.scaleCanvas();
 
         // Attach event listeners
@@ -59,9 +59,16 @@ export class CanvasRenderer {
     }
 
     // Source and Destination {x, y, width, height}
-    drawSprite(img: HTMLImageElement | ImageBitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number) {
+    drawSprite(img: HTMLImageElement | ImageBitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number, flipX = false) {
         this._ctx.imageSmoothingEnabled = false;
-        this._ctx.drawImage(img, sx, sy, sw, sh, dx * this._scaleFactor, dy * this._scaleFactor, dw * this._scaleFactor, dh * this._scaleFactor);
+        if (flipX) {
+            this._ctx.save();
+            this._ctx.scale(-1, 1);
+            this._ctx.drawImage(img, sx, sy, sw, sh, (-dw - dx) * this._scaleFactor, dy * this._scaleFactor, dw * this._scaleFactor, dh * this._scaleFactor);
+            this._ctx.restore();
+        } else {
+            this._ctx.drawImage(img, sx, sy, sw, sh, dx * this._scaleFactor, dy * this._scaleFactor, dw * this._scaleFactor, dh * this._scaleFactor);
+        }
     }
 
     drawText(text: string, x: number, y: number) {
