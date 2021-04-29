@@ -1,4 +1,4 @@
-import { CANVAS_WIDTH, CANVAS_HEIGHT, CanvasRenderer } from './CanvasRenderer'
+import { CANVAS_WIDTH, CANVAS_HEIGHT, CanvasRenderer } from '../CanvasRenderer'
 import { Sprite } from './Sprite';
 import { Tile } from './Tile';
 
